@@ -25,5 +25,5 @@ class GreetingTest {
     void testHelloWorld() {
         System.out.println(greeting.helloWorld("John"));
     }
-    
+
 }
