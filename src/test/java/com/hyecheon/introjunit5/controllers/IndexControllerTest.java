@@ -20,6 +20,7 @@ class IndexControllerTest {
         assertEquals("index", controller.index());
         assertEquals("index", controller.index(), "Wrong View Returned");
         assertEquals("index", controller.index(), () -> "This is some expensive Message to build for my test");
+
     }
 
     @Test
