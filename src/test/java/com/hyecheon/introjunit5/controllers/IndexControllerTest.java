@@ -1,13 +1,16 @@
 package com.hyecheon.introjunit5.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class IndexControllerTest {
     IndexController controller;
@@ -32,6 +35,9 @@ class IndexControllerTest {
             controller.oopsHandler();
         });
     }
+
+
+    @Disabled("demo of timeout")
     @Test
     void testTimeOut() {
         assertTimeout(Duration.ofMillis(100), () -> {
@@ -40,11 +46,22 @@ class IndexControllerTest {
         });
     }
 
+    @Disabled("demo of timeout")
     @Test
     void testTimeOutPrempt() {
         assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
             Thread.sleep(2000);
             System.out.println("I get here 234234234");
         });
+    }
+
+    @Test
+    void testAssumptionTrue() {
+        assumeTrue("hyecheon".equalsIgnoreCase(System.getenv("USERNAME")));
+    }
+
+    @Test
+    void testAssumptionTrueAssumptionIsTrue() {
+        assumeTrue("hyecheon".equalsIgnoreCase("hyecheon"));
     }
 }
