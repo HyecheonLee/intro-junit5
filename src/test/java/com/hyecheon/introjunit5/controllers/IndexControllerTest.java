@@ -1,6 +1,5 @@
 package com.hyecheon.introjunit5.controllers;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,12 +21,13 @@ class IndexControllerTest {
         assertEquals("index", controller.index());
         assertEquals("index", controller.index(), "Wrong View Returned");
         assertEquals("index", controller.index(), () -> "This is some expensive Message to build for my test");
-
     }
 
     @DisplayName("예외 테스트")
     @Test
-    void oupsHandler() {
-        assertTrue("notimplemented".equals(controller.oupsHandler()), () -> "This is some expensive Message to build for my test");
+    void oopsHandler() {
+        assertThrows(ValueNotFoundException.class, () -> {
+            controller.oopsHandler();
+        });
     }
 }
