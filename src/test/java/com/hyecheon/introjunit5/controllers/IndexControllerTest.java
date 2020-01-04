@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.*;
 
 import java.time.Duration;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,6 +26,8 @@ class IndexControllerTest {
         assertEquals("index", controller.index());
         assertEquals("index", controller.index(), "Wrong View Returned");
         assertEquals("index", controller.index(), () -> "This is some expensive Message to build for my test");
+
+        assertThat(controller.index()).isEqualTo("index");
     }
 
     @DisplayName("예외 테스트")
