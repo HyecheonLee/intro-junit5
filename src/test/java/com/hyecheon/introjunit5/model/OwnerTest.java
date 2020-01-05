@@ -21,6 +21,6 @@ class OwnerTest {
                 () -> assertAll("Owner Properties",
                         () -> assertEquals("Key West", owner.getCity(), "City Did Not Match"),
                         () -> assertEquals("1231231234", owner.getTelephone())));
-        assertThat(owner.getCity(), is("Ket West"));
+        assertThat(owner.getCity(), is("Key West"));
     }
 }
