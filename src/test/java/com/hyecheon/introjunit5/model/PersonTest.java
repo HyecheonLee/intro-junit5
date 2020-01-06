@@ -1,10 +1,7 @@
 package com.hyecheon.introjunit5.model;
 
 import com.hyecheon.introjunit5.ModelTests;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,5 +33,10 @@ class PersonTest implements ModelTests {
     @Test
     void myRepeatedTest() {
         //todo - impl
+    }
+
+    @RepeatedTest(5)
+    void myRepeatedTestWithDI(TestInfo testInfo, RepetitionInfo repetitionInfo) {
+        System.out.println(testInfo.getDisplayName() + ":" + repetitionInfo.getCurrentRepetition());
     }
 }
