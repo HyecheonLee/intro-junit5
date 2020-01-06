@@ -1,12 +1,12 @@
 package com.hyecheon.introjunit5.model;
 
+import com.hyecheon.introjunit5.ModelTests;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("model")
-class PersonTest {
+class PersonTest implements ModelTests {
     @Test
     void groupedAssertions() {
         //given
@@ -24,8 +24,8 @@ class PersonTest {
 
         //when
         assertAll("Test Props Set",
-                () -> assertEquals(person.getFirstName(), "Joe2", "First Name Failed"),
-                () -> assertEquals(person.getLastName(), "Buckxx", "Last Name Failed"));
+                () -> assertEquals(person.getFirstName(), "Joe", "First Name Failed"),
+                () -> assertEquals(person.getLastName(), "Buck", "Last Name Failed"));
 
     }
 }
