@@ -1,5 +1,6 @@
 package com.hyecheon.introjunit5.controllers;
 
+import com.hyecheon.introjunit5.ControllerTests;
 import com.hyecheon.introjunit5.fauxspring.Model;
 import com.hyecheon.introjunit5.fauxspring.ModelMapImpl;
 import com.hyecheon.introjunit5.model.Vet;
@@ -13,9 +14,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-class VetControllerTest {
+class VetControllerTest implements ControllerTests {
 
     VetService vetService;
     SpecialtyService specialtyService;
