@@ -1,5 +1,6 @@
 package com.hyecheon.introjunit5.model;
 
+import com.hyecheon.introjunit5.CustomArgsProvider;
 import com.hyecheon.introjunit5.ModelTests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -76,5 +77,12 @@ class OwnerTest implements ModelTests {
                 Arguments.of("FL", 5, 1),
                 Arguments.of("OH", 2, 8),
                 Arguments.of("MI", 3, 5));
+    }
+
+    @DisplayName("Custom Provider Test")
+    @ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
+    @ArgumentsSource(CustomArgsProvider.class)
+    void fromCustomProviderTest(String stateName, int val1, int val2) {
+        System.out.println(stateName + " = " + val1 + " : " + val2);
     }
 }
