@@ -1,14 +1,17 @@
 package com.hyecheon.introjunit5.service.springdatajpa;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.hyecheon.introjunit5.model.Speciality;
 import com.hyecheon.introjunit5.repositories.SpecialtyRepository;
+import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +27,20 @@ class SpecialitySDJpaServiceTest {
 
   @InjectMocks
   SpecialitySDJpaService service;
+
+  @Test
+  void findByIdTest() {
+    final var speciality = new Speciality();
+
+    when(specialtyRepository.findById(1L)).thenReturn(Optional.of(speciality));
+
+    final var foundSpecialty = service.findById(1L);
+
+    assertThat(foundSpecialty).isNotNull();
+
+    verify(specialtyRepository).findById(1L);
+  }
+
 
   @Test
   void deleteById() {
