@@ -2,6 +2,8 @@ package com.hyecheon.introjunit5.service.springdatajpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.never;
@@ -29,6 +31,14 @@ class SpecialitySDJpaServiceTest {
   SpecialitySDJpaService service;
 
   @Test
+  void testDeleteByObject() {
+    final var speciality = new Speciality();
+    service.delete(speciality);
+
+    verify(specialtyRepository).delete(any(Speciality.class));
+  }
+
+  @Test
   void findByIdTest() {
     final var speciality = new Speciality();
 
@@ -38,7 +48,7 @@ class SpecialitySDJpaServiceTest {
 
     assertThat(foundSpecialty).isNotNull();
 
-    verify(specialtyRepository).findById(1L);
+    verify(specialtyRepository).findById(anyLong());
   }
 
 
