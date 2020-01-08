@@ -5,11 +5,11 @@ import org.junit.jupiter.api.*;
 
 @Tag("repeated")
 public class PersonRepeatedTests implements ModelRepeatedTests {
-    @RepeatedTest(value = 10, name = "{displayName} : {currentRepetition} - {totalRepetitions}")
+
+    @RepeatedTest(value = 10, name = "{displayName} : {currentRepetition} | {totalRepetitions}")
     @DisplayName("My Repeated Test")
-    @Test
     void myRepeatedTest() {
-        //todo - impl
+        //todo impl
     }
 
     @RepeatedTest(5)
@@ -19,7 +19,6 @@ public class PersonRepeatedTests implements ModelRepeatedTests {
 
     @RepeatedTest(value = 5, name = "{displayName} : {currentRepetition} | {totalRepetitions}")
     @DisplayName("My Assignment Repeated Test")
-    @Test
     void myAssignmentRepeated() {
         //todo impl
     }
