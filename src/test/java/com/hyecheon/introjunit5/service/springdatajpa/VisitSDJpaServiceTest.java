@@ -46,7 +46,7 @@ class VisitSDJpaServiceTest {
     //when
     final var foundVisits = service.findAll();
 
-    //then
+    //then x4xx
     then(visitRepository).should().findAll();
     assertThat(foundVisits).hasSize(1);
   }
