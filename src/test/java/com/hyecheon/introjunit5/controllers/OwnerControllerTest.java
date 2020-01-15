@@ -2,7 +2,12 @@ package com.hyecheon.introjunit5.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import com.hyecheon.introjunit5.fauxspring.BindingResult;
 import com.hyecheon.introjunit5.fauxspring.Model;
@@ -15,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -35,8 +41,12 @@ class OwnerControllerTest {
   @Mock
   BindingResult bindingResult;
 
+  @Mock
+  Model model;
+
   @Captor
   ArgumentCaptor<String> stringArgumentCaptor;
+
 
   @BeforeEach
   void setUp() {
@@ -76,12 +86,19 @@ class OwnerControllerTest {
   void processFindFormWildcardFound() {
     //given
     final var owner = new Owner(1L, "joe", "FindMe");
-
+    InOrder inOrder = inOrder(ownerService, model);
     //when
-    final var viewName = ownerController.processFindForm(owner, bindingResult, Mockito.mock(Model.class));
+    final var viewName = ownerController
+        .processFindForm(owner, bindingResult, model);
 
+    //then
     assertThat("%FindMe%").isEqualToIgnoringCase(stringArgumentCaptor.getValue());
     assertThat("owners/ownersList").isEqualToIgnoringCase(viewName);
+
+    // inOrder asserts
+    inOrder.verify(ownerService).findAllByLastNameLike(anyString());
+
+    inOrder.verify(model, timeout(1)).addAttribute(anyString(), anyList());
   }
 
   @Test
@@ -91,9 +108,11 @@ class OwnerControllerTest {
 
     //when
     final var viewName = ownerController.processFindForm(owner, bindingResult, null);
+    verifyNoMoreInteractions(ownerService);
 
     assertThat("%DontFindMe%").isEqualToIgnoringCase(stringArgumentCaptor.getValue());
     assertThat("owners/findOwners").isEqualToIgnoringCase(viewName);
+    verifyNoMoreInteractions(model);
   }
 
   @Test
@@ -108,6 +127,7 @@ class OwnerControllerTest {
     //then
 //    then(viewName).should().equalsIgnoreCase("owners/createOrUpdateOwnerForm");
     assertThat(viewName).isEqualToIgnoringCase(OWNERS_CREATE_OR_UPDATE_OWNER_FORM);
+    verifyNoMoreInteractions(model);
   }
 
   @Test

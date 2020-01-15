@@ -1,17 +1,18 @@
 package com.hyecheon.introjunit5.service.springdatajpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willThrow;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,7 +20,6 @@ import static org.mockito.Mockito.when;
 import com.hyecheon.introjunit5.model.Speciality;
 import com.hyecheon.introjunit5.repositories.SpecialtyRepository;
 import java.util.Optional;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -85,7 +85,7 @@ class SpecialitySDJpaServiceTest {
     service.deleteById(1L);
 
     //then
-    then(specialtyRepository).should(times(2)).deleteById(1L);
+    then(specialtyRepository).should(timeout(100).times(2)).deleteById(1L);
   }
 
   @Test
@@ -96,7 +96,7 @@ class SpecialitySDJpaServiceTest {
     service.deleteById(1L);
     service.deleteById(1L);
     //then
-    then(specialtyRepository).should(atLeastOnce()).deleteById(1L);
+    then(specialtyRepository).should(timeout(1000).atLeastOnce()).deleteById(1L);
   }
 
   @Test
@@ -118,7 +118,7 @@ class SpecialitySDJpaServiceTest {
     service.deleteById(1L);
 
     //then
-    then(specialtyRepository).should(atLeastOnce()).deleteById(1L);
+    then(specialtyRepository).should(timeout(200).atLeastOnce()).deleteById(1L);
     then(specialtyRepository).should(never()).deleteById(5L);
   }
 
